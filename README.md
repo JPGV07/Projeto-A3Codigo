@@ -105,6 +105,6 @@ HTML semântico
 CSS limpo
 JavaScript direto e fácil de entender
 
-Conclusão
+4. Conclusão:
 O projeto A3 reúne três ferramentas educacionais que simulam conceitos essenciais de Sistemas Computacionais, Sistemas Operacionais e Segurança da Informação.
 O sistema permite que o usuário aprenda os conceitos de forma prática através de interação, visualização e experimentação.
