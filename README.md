@@ -14,11 +14,10 @@ Estrutura do Projeto /ProjetoA3 │── A3.html → Tela inicial com os nomes 
 
 Alunos
 
-João Pedro Gama Viegas
-Kevin Suell Ferreira de Souza
-Francisco Bezerra Neto
-Felipe Willamis Meireles Fernandes
-Aquirone Carlos do Nascimento Filho
+João Pedro Gama Viegas, 
+Kevin Suell Ferreira de Souza, 
+Francisco Bezerra Neto, 
+Felipe Willamis Meireles Fernandes, 
 
 Instituição: Faculdade Internacional da Paraíba (FPB)
 
