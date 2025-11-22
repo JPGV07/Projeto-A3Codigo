@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Projeto A3 Conversão</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      background: linear-gradient(to bottom right, #a8c0ff, #dbe8ff);
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+    }
+
+    .caixa-destaque {
+      background-color: rgba(255, 255, 255, 0.6);
+      border-radius: 12px;
+      padding: 20px;
+      margin: 30px auto 10px;
+      width: fit-content;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      color: #1c1c1c;
+      font-size: 2.3em;
+      margin: 0;
+    }
+
+    h2 {
+      color: #1a237e;
+      font-size: 1.5em;
+    }
+
+    .tela-home {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 30px;
+      background-color: rgba(255, 255, 255, 0.5);
+      border-radius: 16px;
+      padding: 30px;
+      margin: 20px auto;
+      width: 90%;
+      max-width: 800px;
+      box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .botoes-laterais {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .conteudo-principal {
+      flex: 1;
+    }
+
+    button,
+    .botao {
+      font-size: 1.2em;
+      padding: 12px 28px;
+      cursor: pointer;
+      border: none;
+      border-radius: 10px;
+      color: white;
+      transition: transform 0.1s ease, box-shadow 0.1s ease, background-color 0.2s ease;
+      box-shadow: 0 0 12px rgba(255, 255, 255, 0.6);
+    }
+
+    button:active,
+    .botao:active {
+      transform: scale(0.97);
+      box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .botaoA {
+      background-color: #ff8a65;
+    }
+
+    .botaoA:hover {
+      background-color: #0a0a0a;
+    }
+
+    .botaoB {
+      background-color: #4fc3f7;
+    }
+
+    .botaoB:hover {
+      background-color: #050505;
+    }
+
+    .botaoC {
+      background-color: #81c784;
+    }
+
+    .botaoC:hover {
+      background-color: #121312;
+    }
+
+    .botaoD {
+      background-color: #ffb74d;
+    }
+
+    .botaoD:hover {
+      background-color: #0e0d0d;
+    }
+
+    .botaoVoltar {
+      background-color: #7986cb;
+      display: inline-block;
+       text-decoration: none;
+      margin-top: 30px;
+    }
+
+    .botaoVoltar:hover {
+      background-color: #050505;
+    }
+
+    #entrada {
+      display: none;
+      margin: 20px auto;
+      padding: 20px;
+      background-color: rgba(255, 255, 255, 0.6);
+      border-radius: 12px;
+      width: fit-content;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    input {
+      font-size: 1.2em;
+      padding: 8px 12px;
+      width: 180px;
+      text-align: center;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    }
+
+    #resultado {
+      margin-top: 25px;
+      font-size: 1.3em;
+      color: rgb(4, 155, 4);
+    }
+
+    .resultado-linha {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin-top: 25px;
+    }
+
+    .resultado-item {
+      font-size: 1.2em;
+      padding: 10px 20px;
+      border-radius: 10px;
+      color: white;
+      box-shadow: 0 0 6px rgba(255, 255, 255, 0.5);
+    }
+  </style>
+</head>
+<body>
+  <div class="caixa-destaque">
+    <h1>Escolha uma opção:</h1>
+  </div>
+
+  <div class="tela-home">
+    <div class="botoes-laterais">
+      <button class="botao botaoA" onclick="escolher('A')">Octal</button>
+      <button class="botao botaoB" onclick="escolher('B')">Decimal</button>
+      <button class="botao botaoC" onclick="escolher('C')">Hexadecimal</button>
+      <button class="botao botaoD" onclick="escolher('D')">Binário</button>
+    </div>
+
+    <div class="conteudo-principal">
+      <div id="entrada">
+        <h2>Digite seu número</h2>
+        <input type="text" id="numero" placeholder="Digite aqui..." oninput="processarNumero()" maxlength="16">
+      </div>
+
+      <div id="resultado"></div>
+
+      <a href="A3pt2.html" class="botao botaoVoltar">Voltar</a>
+    </div>
+  </div>
+
+  <script>
+    let escolha = null;
+    let baseOrigem = null;
+
+    function escolher(opcao) {
+      escolha = opcao;
+      document.getElementById("entrada").style.display = "block";
+      document.getElementById("resultado").innerHTML = "";
+      document.getElementById("numero").value = "";
+
+      if (opcao === "A") baseOrigem = 8;
+      else if (opcao === "B") baseOrigem = 10;
+      else if (opcao === "C") baseOrigem = 16;
+      else if (opcao === "D") baseOrigem = 2;
+    }
+
+    function validarEntrada(valor, base) {
+      const padroes = {
+        2: /^[01]+$/,
+        8: /^[0-7]+$/,
+        10: /^[0-9]+$/,
+        16: /^[0-9A-Fa-f]+$/
+      };
+      return padroes[base].test(valor);
+    }
+
+    function processarNumero() {
+      let valor = document.getElementById("numero").value;
+
+      if (valor === "") {
+        document.getElementById("resultado").innerText = "";
+        return;
+      }
+
+      if (!validarEntrada(valor, baseOrigem)) {
+        document.getElementById("resultado").innerText = "Número inválido para a base selecionada.";
+        return;
+      }
+
+      let decimal = parseInt(valor, baseOrigem);
+      if (isNaN(decimal)) {
+        document.getElementById("resultado").innerText = "Valor inválido.";
+        return;
+      }
+
+      let binario = decimal.toString(2);
+      let octal = decimal.toString(8);
+      let hexadecimal = decimal.toString(16).toUpperCase();
+
+      let resultado = `
+        <div class="resultado-linha">
+          <div class="resultado-item botaoD">Binário: ${binario}</div>
+          <div class="resultado-item botaoA">Octal: ${octal}</div>
+          <div class="resultado-item botaoB">Decimal: ${decimal}</div>
+          <div class="resultado-item botaoC">Hexadecimal: ${hexadecimal}</div>
+        </div>
+      `;
+      document.getElementById("resultado").innerHTML = resultado;
+    }
+  </script>
+</body>
+</html>

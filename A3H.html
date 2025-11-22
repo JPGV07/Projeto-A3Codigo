@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Projeto A3 Hash</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      background: linear-gradient(to bottom right, #a8c0ff, #dbe8ff);
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+    }
+
+    .caixa-destaque {
+      background-color: rgba(255, 255, 255, 0.6);
+      border-radius: 12px;
+      padding: 20px;
+      margin: 30px auto 10px;
+      width: fit-content;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      color: #1c1c1c;
+      font-size: 2.3em;
+      margin: 0;
+    }
+
+    h2 {
+      color: #1a237e;
+      font-size: 1.5em;
+      margin-top: 20px;
+    }
+
+    .tela-hash {
+      background-color: rgba(255, 255, 255, 0.5);
+      border-radius: 16px;
+      padding: 30px;
+      margin: 20px auto;
+      width: 90%;
+      max-width: 600px;
+      box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
+    }
+
+    button,
+    .botaoV,
+    .botaoHash {
+      font-size: 1.2em;
+      padding: 12px 28px;
+      cursor: pointer;
+      border: none;
+      border-radius: 10px;
+      color: white;
+      transition: transform 0.1s ease, box-shadow 0.1s ease, background-color 0.2s ease;
+      box-shadow: 0 0 12px rgba(255, 255, 255, 0.6);
+      margin-top: 20px;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    button:active,
+    .botaoV:active,
+    .botaoHash:active {
+      transform: scale(0.97);
+      box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .botaoHash {
+      background-color: #4fc3f7;
+    }
+
+    .botaoHash:hover {
+      background-color: #0d0d0e;
+    }
+
+    .botaoV {
+      background-color: #5c6bc0;
+    }
+
+    .botaoV:hover {
+      background-color: #0a0a0a;
+    }
+
+    input {
+      font-size: 1.2em;
+      padding: 8px 12px;
+      width: 180px;
+      text-align: center;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+      margin-top: 15px;
+    }
+
+    #resultado {
+      margin-top: 25px;
+    }
+
+    .caixa-resultado {
+      background-color: rgba(92, 107, 192, 0.2);
+      border-radius: 12px;
+      padding: 20px;
+      margin-top: 25px;
+      box-shadow: 0 0 10px rgba(92, 107, 192, 0.3);
+      max-width: 90%;
+      margin-left: auto;
+      margin-right: auto;
+      word-break: break-word;
+    }
+
+    .rotulo {
+      font-weight: bold;
+      font-size: 1.2em;
+      color: #1a237e;
+      margin-bottom: 10px;
+    }
+
+    .valor {
+       font-family: Arial, sans-serif;
+      font-size: 20px;
+      color: #080808;
+      line-height: 1.5;
+    }
+  </style>
+</head>
+<body>
+  <div class="caixa-destaque">
+    <h1>Gerador de Hash SHA-256</h1>
+  </div>
+
+  <div class="tela-hash">
+    <h2>Digite uma palavra</h2>
+    <input type="text" id="texto" placeholder="Digite aqui" maxlength="64">
+    <br>
+    <button class="botaoHash" onclick="gerarHash()">Gerar Hash</button>
+    <div id="resultado"></div>
+    <a href="A3pt2.html" class="botaoV">Voltar</a>
+  </div>
+
+  <script>
+    async function gerarHash() {
+      const texto = document.getElementById('texto').value;
+      if (!texto) {
+        document.getElementById('resultado').innerText = "Digite um texto.";
+        return;
+      }
+
+      const encoder = new TextEncoder();
+      const data = encoder.encode(texto);
+      const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+      const hashArray = Array.from(new Uint8Array(hashBuffer));
+      const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+
+      document.getElementById('resultado').innerHTML = `
+        <div class="caixa-resultado">
+          <div class="rotulo">SHA-256:</div>
+          <div class="valor">${hashHex}</div>
+        </div>
+      `;
+    }
+  </script>
+</body>
+</html>
