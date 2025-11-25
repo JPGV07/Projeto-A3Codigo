@@ -1,4 +1,4 @@
-Projeto A3 — Conversão, Hash e Simulação FCFS
+Convergeneration — Conversão, Hash e Simulação FCFS
 
 Este projeto é um sistema web desenvolvido para a disciplina A3, contendo três funcionalidades principais:
 
